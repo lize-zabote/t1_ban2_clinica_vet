@@ -14,7 +14,8 @@ Este repositório contém uma aplicação de gerenciamento de clínica com integ
 5. Descompacte a pasta.  
 
 ➡️ Dentro dela, você encontrará:
-- Um arquivo **dbclinica.txt** (script do banco de dados).  
+- Um arquivo **dbclinica.txt** (script para criação do banco de dados).
+- Um arquivo **popula_banco.txt** (script para popular o banco com dados fictícios  
 - Uma pasta chamada **Clinica** (contendo os arquivos da aplicação).  
 
 ---
@@ -23,8 +24,11 @@ Este repositório contém uma aplicação de gerenciamento de clínica com integ
 1. Abra o **arquivo `dbclinica.txt`** e copie todo o conteúdo.  
 2. No **pgAdmin**, crie um novo banco:  
    - Clique em **Create Database**.  
-   - Nomeie como **dbclinica**.  
-3. Cole o script copiado e execute-o para criar as tabelas.  
+   - Nomeie como **dbclinica**.
+   - Clique com o botão direito e depois em "query tool"
+3. Cole o script copiado e execute-o para criar as tabelas.
+4. Abra o **arquivo `popula_banco.txt`** e copie todo o conteúdo.
+5. Cole o script copiado na query tool e execute para popular as tabelas.
 
 ---
 
