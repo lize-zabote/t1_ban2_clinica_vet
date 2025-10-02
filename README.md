@@ -39,6 +39,7 @@ Este repositório contém uma aplicação de gerenciamento de clínica com integ
    String senha = "";
 
 ➡️ Insira entre aspas a senha do seu PostgreSQL.
+
 6. Clique em Run para iniciar a aplicação.
 
 ### ▶️ Executando
