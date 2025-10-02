@@ -1,0 +1,94 @@
+-- popula_banco
+
+--
+-- Script de Inserção de Dados Fictícios para o Banco de Dados Petshop
+--
+
+-- Resetando as sequências para garantir que os IDs comecem em 1
+ALTER SEQUENCE public.servico_a_seq RESTART WITH 1;
+ALTER SEQUENCE public.cliente_a_seq RESTART WITH 1;
+ALTER SEQUENCE public.funcionario_a_seq RESTART WITH 1;
+ALTER SEQUENCE public.especie_a_seq RESTART WITH 1;
+ALTER SEQUENCE public.animal_a_seq RESTART WITH 1;
+ALTER SEQUENCE public.agendamento_a_seq RESTART WITH 1;
+
+-- Limpando as tabelas na ordem inversa das dependências para evitar erros de FK
+TRUNCATE TABLE public.atendimento, public.agendamento, public.animal, public.cliente, public.funcionario, public.servico, public.especie RESTART IDENTITY CASCADE;
+
+
+-------------------------------------------------
+-- Tabela: Espécie
+-------------------------------------------------
+INSERT INTO public.especie (descricao) VALUES
+('Cachorro'),
+('Gato'),
+('Pássaro'),
+('Hamster');
+
+-------------------------------------------------
+-- Tabela: Serviço
+-------------------------------------------------
+INSERT INTO public.servico (valor, descricao) VALUES
+(80.00, 'Banho e Tosa Completa'),
+(50.00, 'Banho Simples'),
+(150.00, 'Consulta Veterinária'),
+(90.00, 'Aplicação de Vacina V10'),
+(40.00, 'Corte de Unhas');
+
+-------------------------------------------------
+-- Tabela: Cliente
+-------------------------------------------------
+INSERT INTO public.cliente (nome, sobrenome, telefone, cep, bairro, rua) VALUES
+('Ana', 'Silva', '(47) 99988-7766', '89220-100', 'Costa e Silva', 'Rua das Palmeiras, 123'),
+('Bruno', 'Costa', '(47) 98877-6655', '89204-250', 'América', 'Rua XV de Novembro, 456'),
+('Carla', 'Oliveira', '(47) 97766-5544', '89211-500', 'Santo Antônio', 'Rua Marquês de Olinda, 789'),
+('Daniel', 'Pereira', '(47) 96655-4433', '89223-005', 'Aventureiro', 'Rua Tuiuti, 101'),
+('Eduarda', 'Martins', '(47) 95544-3322', '89202-300', 'Atiradores', 'Rua Eusébio de Queiroz, 212');
+
+-------------------------------------------------
+-- Tabela: Funcionário
+-------------------------------------------------
+INSERT INTO public.funcionario (nome, sobrenome, rua, cep, bairro, especialidade, cargo) VALUES
+('Fernanda', 'Lima', 'Rua dos Girassóis, 321', '89221-500', 'Saguaçu', 'Tosa Japonesa', 'Tosadora'),
+('Gustavo', 'Almeida', 'Rua das Orquídeas, 654', '89203-400', 'Anita Garibaldi', 'Clínica Geral de Pequenos Animais', 'Veterinário'),
+('Heloísa', 'Ribeiro', 'Avenida Central, 987', '89201-001', 'Centro', NULL, 'Recepcionista'),
+('Igor', 'Santos', 'Rua Blumenau, 741', '89204-251', 'América', 'Tosa na tesoura', 'Tosador');
+
+-------------------------------------------------
+-- Tabela: Animal
+-------------------------------------------------
+-- idAnimal, nome, dataNascimento, idEspecie, idCliente
+INSERT INTO public.animal (nome, dataNascimento, idEspecie, idCliente) VALUES
+('Thor', '2022-05-10', 1, 1),    -- Cachorro de Ana
+('Mia', '2021-11-20', 2, 1),     -- Gato de Ana
+('Loki', '2023-01-15', 1, 2),    -- Cachorro de Bruno
+('Zazu', '2024-03-30', 3, 3),    -- Pássaro de Carla
+('Bolinha', '2023-08-01', 4, 4), -- Hamster de Daniel
+('Nina', '2020-07-25', 1, 5),    -- Cachorro de Eduarda
+('Simba', '2022-09-12', 2, 5);   -- Gato de Eduarda
+
+-------------------------------------------------
+-- Tabela: Agendamento
+-------------------------------------------------
+-- idAgendamento, data, hora, idServico, idAnimal
+INSERT INTO public.agendamento (data, hora, idServico, idAnimal) VALUES
+('2025-10-10', '10:00:00', 1, 1), -- Thor, Banho e Tosa
+('2025-10-11', '14:30:00', 3, 2), -- Mia, Consulta
+('2025-10-12', '09:00:00', 2, 3), -- Loki, Banho Simples
+('2025-10-12', '11:00:00', 4, 6), -- Nina, Vacina
+('2025-10-15', '16:00:00', 5, 7), -- Simba, Corte de Unhas
+('2025-10-18', '13:00:00', 1, 6); -- Nina, Banho e Tosa
+
+-------------------------------------------------
+-- Tabela: Atendimento (Ligação Agendamento x Funcionário)
+-------------------------------------------------
+-- idAgendamento, idFuncionario
+INSERT INTO public.atendimento (idAgendamento, idFuncionario) VALUES
+(1, 1), -- Agendamento 1 (Thor, Banho e Tosa) feito pela Tosadora Fernanda (ID 1)
+(2, 2), -- Agendamento 2 (Mia, Consulta) feito pelo Veterinário Gustavo (ID 2)
+(3, 4), -- Agendamento 3 (Loki, Banho Simples) feito pelo Tosador Igor (ID 4)
+(4, 2), -- Agendamento 4 (Nina, Vacina) feito pelo Veterinário Gustavo (ID 2)
+(5, 2), -- Agendamento 5 (Simba, Corte de Unhas) feito pelo Veterinário Gustavo (ID 2)
+(6, 4); -- Agendamento 6 (Nina, Banho e Tosa) feito pelo Tosador Igor (ID 4)
+
+-- FIM DO SCRIPT
