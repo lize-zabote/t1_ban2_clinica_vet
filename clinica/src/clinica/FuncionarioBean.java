@@ -98,8 +98,6 @@ public class FuncionarioBean {
     
     @Override
     public String toString(){
-        return "ID: " + idFuncionario + " | Nome: " + nome + " " + sobrenome + " | Cargo: " + cargo + "\n" +
-               "  Endereço: " + rua + ", " + bairro + " - CEP: " + cep;
+        return "ID: " + idFuncionario + " | Nome: " + nome + " " + sobrenome + " | Cargo: " + cargo + " | Especialidade: " + especialidade + " | Endereço: " + rua + ", " + bairro + " - CEP: " + cep;
     }
 }
-
